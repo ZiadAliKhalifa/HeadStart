@@ -1,6 +1,5 @@
 import subprocess
 
-from getpass import getpass
 from os import listdir, path, mkdir, chdir
 from colorama import Fore, Back, Style
 from github_helper import GithubHelper
@@ -46,12 +45,5 @@ if will_upload_to_github != "yes" and will_upload_to_github != "y":
     exit()
 
 
-github_username = input(
-    Fore.MAGENTA + "Please enter your github username: ").strip()
-github_password = getpass(
-    "Please enter your github password: " + Style.RESET_ALL).strip()
-
-print(github_username, github_password)
-
-user = GithubHelper(github_username, github_password)
-user.check_if_repo_exists(repository_name)
+github_token = input(
+    Fore.MAGENTA + "Please enter your github token: " + Style.RESET_ALL).strip()

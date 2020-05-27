@@ -3,17 +3,17 @@ from colorama import Fore, Back, Style
 
 
 class GithubHelper:
-    def __init__(self, username, password):
-        self.auth_user = Github(username, password)
+    def __init__(self,  token):
+        self.auth_user = Github(login_or_token=token)
         print("Logged in!")
 
     def create_new_repo(self, name):
-        if self.check_if_repo_exists(name):
+        if self.check_if_repo_exists(name) == True:
             print(
                 Fore.RED + "Repository already exists!" + Style.RESET_ALL)
             name += "-Headstart!"
-        else:
-            print(Fore.GREEN + "Creating Git Repository..." + Style.RESET_ALL)
+
+        print(Fore.GREEN + "Creating GitHub Repository..." + Style.RESET_ALL)
 
     def check_if_repo_exists(self, repoName):
         # Get all user repos
@@ -23,5 +23,6 @@ class GithubHelper:
         return repoName in user_repo_names
 
 
-g = GithubHelper("ZiadAliKhalifa", "suggest91In")
-g.check_if_repo_exists("Taskat")
+g = GithubHelper("24e34aecf7d14f505d7dc9064ce4c1a8036fe0d1")
+print(g)
+g.create_new_repo("Taskat")
