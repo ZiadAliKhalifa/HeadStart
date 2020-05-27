@@ -3,13 +3,14 @@ import subprocess
 from getpass import getpass
 from os import listdir, path, mkdir, chdir
 from colorama import Fore, Back, Style
+from github_helper import GithubHelper
 
 print('\033[39m')
 print("Welcome to " + Fore.CYAN + "HeadStart" + Style.RESET_ALL + "!")
 print('\033[39m')
 
 repository_name = input(
-    Fore.YELLOW + "What will you be naming this project?: " + Style.RESET_ALL).strip()
+    Fore.BLUE + "What will you be naming this project?: " + Style.RESET_ALL).strip()
 
 
 # Validation for if there is a folder with the same name
@@ -36,8 +37,21 @@ subprocess.run(["git", "add", "."])
 subprocess.run(["git", "commit", "-m", "Initial Commit"])
 
 
-# github_username = input(Fore.MAGENTA + "Please enter your github username: ")
-# github_password = getpass("Please enter your github password: ")
-# print('\033[39m')
+will_upload_to_github = input(
+    Fore.BLUE + "Do you need to put that project on GitHub? (y/n): " + Style.RESET_ALL).strip().lower()
 
-# print(github_username, github_password)
+if will_upload_to_github != "yes" and will_upload_to_github != "y":
+    print("You are all good, then.")
+    print("Do awesome things!")
+    exit()
+
+
+github_username = input(
+    Fore.MAGENTA + "Please enter your github username: ").strip()
+github_password = getpass(
+    "Please enter your github password: " + Style.RESET_ALL).strip()
+
+print(github_username, github_password)
+
+user = GithubHelper(github_username, github_password)
+user.check_if_repo_exists(repository_name)
