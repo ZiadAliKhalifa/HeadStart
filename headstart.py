@@ -9,7 +9,9 @@ print("Welcome to " + Fore.CYAN + "HeadStart" + Style.RESET_ALL + "!")
 print('\033[39m')
 
 repository_name = input(
-    Fore.BLUE + "What will you be naming this project?: " + Style.RESET_ALL).strip()
+    Fore.BLUE + "What will you be naming this project?: ").strip()
+is_repo_private = input(
+    "Do you want it to be public? (y/n)" + Style.RESET_ALL).lower().strip()[1] == "y"
 
 
 # Validation for if there is a folder with the same name
@@ -45,5 +47,7 @@ if will_upload_to_github != "yes" and will_upload_to_github != "y":
     exit()
 
 
+github_username = input(
+    Fore.MAGENTA + "Please enter your github username: ").strip()
 github_token = input(
-    Fore.MAGENTA + "Please enter your github token: " + Style.RESET_ALL).strip()
+    "Please enter your github token: " + Style.RESET_ALL).strip()
