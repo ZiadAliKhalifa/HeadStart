@@ -1,4 +1,5 @@
 import subprocess
+import config
 
 from os import listdir, path, mkdir, chdir
 from colorama import Fore, Back, Style
@@ -9,10 +10,7 @@ print("Welcome to " + Fore.CYAN + "HeadStart" + Style.RESET_ALL + "!")
 print('\033[39m')
 
 repository_name = input(
-    Fore.BLUE + "What will you be naming this project?: ").strip()
-is_repo_private = input(
-    "Do you want it to be public? (y/n)" + Style.RESET_ALL).lower().strip()[1] == "y"
-
+    Fore.BLUE + "What will you be naming this project?: " + Style.RESET_ALL).strip()
 
 # Validation for if there is a folder with the same name
 folders_in_directory = [item for item in listdir(".") if path.isdir(item)]
@@ -47,7 +45,20 @@ if will_upload_to_github != "yes" and will_upload_to_github != "y":
     exit()
 
 
-github_username = input(
-    Fore.MAGENTA + "Please enter your github username: ").strip()
 github_token = input(
-    "Please enter your github token: " + Style.RESET_ALL).strip()
+    "Please enter your github token: ").strip()
+repository_description = input(
+    "Please enter a description for the repository: ").strip()
+is_repo_private = input(
+    "Do you want it to be public? (y/n) " + Style.RESET_ALL).lower().strip()
+
+if is_repo_private != "yes" and is_repo_private != "y":
+    is_repo_private = False
+else:
+    is_repo_private = True
+
+
+github = GithubHelper(github_token)
+response = github.create_new_repo(repository_name,
+                                  github_token, repository_description, is_repo_private)
+print(response.status_code)
