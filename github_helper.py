@@ -1,4 +1,5 @@
 import requests
+import config
 
 from github import Github
 from colorama import Fore, Back, Style
@@ -28,6 +29,5 @@ class GithubHelper:
 
 
 g = GithubHelper(
-    "24e34aecf7d14f505d7dc9064ce4c1a8036fe0d1")
-print(g)
+    config.GITHUB_TOKEN)
 g.create_new_repo("Taskat", "ZiadAliKhalifa")
