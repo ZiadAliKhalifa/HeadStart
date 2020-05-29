@@ -60,5 +60,11 @@ else:
 
 github = GithubHelper(github_token)
 response = github.create_new_repo(repository_name,
-                                  github_token, repository_description, is_repo_private)
-print(response.status_code)
+                                  github_token, repository_description, is_repo_private).json()
+
+github_clone_url = response["clone_url"]
+
+subprocess.run(["git", "remote", "add", "origin", github_clone_url])
+subprocess.run(["git", "push", "-u", "origin", "master"])
+
+print("Do awesome things!")
