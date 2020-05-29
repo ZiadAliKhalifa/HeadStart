@@ -9,6 +9,7 @@ from colorama import Fore, Back, Style
 class GithubHelper:
     def __init__(self,  token):
         try:
+            # Logs in with token and sets "auth user" as the authinticated user
             self.auth_user = Github(login_or_token=token)
         except:
             print(
@@ -16,6 +17,7 @@ class GithubHelper:
 
         print("Logged in!")
 
+    # Wrapper function around the API call
     def create_new_repo(self, repo_name, token, description, is_private):
         if self._check_if_repo_exists(repo_name) == True:
             print(
@@ -28,6 +30,7 @@ class GithubHelper:
         return self._create_repo_api(repo_name, token,
                                      description, is_private)
 
+    # Checks if the user already has a repo with the same name on Github
     def _check_if_repo_exists(self, repoName):
         # Get all user repos
         user_repos = self.auth_user.get_user().get_repos()

@@ -35,7 +35,7 @@ open("README.md", "w+")
 subprocess.run(["git", "add", "."])
 subprocess.run(["git", "commit", "-m", "Initial Commit"])
 
-
+# Checks if the user would like to upload to Github
 will_upload_to_github = input(
     Fore.BLUE + "Do you need to put that project on GitHub? (y/n): " + Style.RESET_ALL).strip().lower()
 
@@ -57,13 +57,14 @@ if is_repo_private != "yes" and is_repo_private != "y":
 else:
     is_repo_private = True
 
-
+# Instanciates  a GitHub class (github_helper.py)
 github = GithubHelper(github_token)
 response = github.create_new_repo(repository_name,
                                   github_token, repository_description, is_repo_private).json()
-
+# Gets the tracking URL from the response of the API
 github_clone_url = response["clone_url"]
 
+# Tracks the Github repo and pushes code to master
 subprocess.run(["git", "remote", "add", "origin", github_clone_url])
 subprocess.run(["git", "push", "-u", "origin", "master"])
 
