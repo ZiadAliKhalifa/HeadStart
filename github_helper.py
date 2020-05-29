@@ -8,7 +8,12 @@ from colorama import Fore, Back, Style
 
 class GithubHelper:
     def __init__(self,  token):
-        self.auth_user = Github(login_or_token=token)
+        try:
+            self.auth_user = Github(login_or_token=token)
+        except:
+            print(
+                Fore.RED + "You might have provided a wrong token. Please try again" + Style.RESET_ALL)
+
         print("Logged in!")
 
     def create_new_repo(self, repo_name, token, description, is_private):
@@ -43,6 +48,10 @@ class GithubHelper:
             "Content-Type": "text/plain"
         }
 
-        response = requests.post(url, data=body, headers=headers)
-        print(response)
+        try:
+            response = requests.post(url, data=body, headers=headers)
+        except:
+            print(
+                Fore.RED + "Encountered problems calling the GitHub API." + Style.RESET_ALL)
+
         return response
