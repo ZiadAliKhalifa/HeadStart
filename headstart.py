@@ -1,5 +1,4 @@
 import subprocess
-import config
 
 from os import listdir, path, mkdir, chdir
 from colorama import Fore, Back, Style
@@ -45,6 +44,9 @@ if will_upload_to_github != "yes" and will_upload_to_github != "y":
     print("Do awesome things!")
     exit()
 
+print("In order to proceed, you must have a GitHub token to use for this app!")
+print("Follow this link on how to get one: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token")
+
 
 github_token = input(
     "Please enter your github token: ").strip()
@@ -57,6 +59,7 @@ if is_repo_private != "yes" and is_repo_private != "y":
     is_repo_private = False
 else:
     is_repo_private = True
+
 
 # Instanciates  a GitHub class (github_helper.py)
 github = GithubHelper(github_token)
