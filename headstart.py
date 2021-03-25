@@ -17,15 +17,16 @@ folders_in_directory = [item for item in listdir(".") if path.isdir(item)]
 if repository_name in folders_in_directory:
     print("A folder already exists in this path with the same name")
     exit()
+else:
+    # Folder's name was unique
+    mkdir(repository_name)
+    chdir(repository_name)
 
-# Folder's name was unique
-mkdir(repository_name)
-chdir(repository_name)
 
 # Initialize a git repository locally
 try:
     subprocess.run(["git", "init"])
-except:
+except e:
     print("Please make sure you have Git Installed on this machine.")
 
 # Create a README file
